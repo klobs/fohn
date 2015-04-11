@@ -96,7 +96,7 @@ timers.setInterval(function(){
 },intervalInMsec);
 
 var server = http.createServer(function(request, response){
-	var a = "<html><head><title>" + title + "</title><head><body><ol>";
+	var a = '<!doctype html><html><head><meta charset="utf-8"><title>' + title + '</title><head><body><ol>';
 	for (b in topstories){
 		if ( newsstore[topstories[b]] != undefined)
 			a = a + formatItem(b);
