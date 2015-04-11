@@ -102,8 +102,12 @@ var server = http.createServer(function(request, response){
 			a = a + formatItem(b);
 	}
 	a = a + "</ol></body></html>";
-	response.write(a);	
-	response.end();
+	var cookiedate = (new Date()).getTime();
+	response.writeHead(200, {
+		  'Set-Cookie': 'fohn=' + cookiedate,
+		  'Content-Type': 'text/html'
+		});
+	response.end(a);
 });
 
 server.listen(8000);
