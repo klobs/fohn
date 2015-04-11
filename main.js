@@ -1,6 +1,7 @@
 var http = require("http");
 var https = require("https");
 var timers = require("timers");
+var Cookies = require("cookies");
 
 var title = "Fohn";
 var numberTopStories = 10;
@@ -96,15 +97,20 @@ timers.setInterval(function(){
 },intervalInMsec);
 
 var server = http.createServer(function(request, response){
+	var cookies = new Cookies(request, response);
+
+	var olddate = cookies.get("fohna");
+	cookies.set("fohna", (new Date()).getTime());
+	cookies.set("fohno", olddate);
+
 	var a = '<!doctype html><html><head><meta charset="utf-8"><title>' + title + '</title><head><body><ol>';
 	for (b in topstories){
 		if ( newsstore[topstories[b]] != undefined)
 			a = a + formatItem(b);
 	}
 	a = a + "</ol></body></html>";
-	var cookiedate = (new Date()).getTime();
+
 	response.writeHead(200, {
-		  'Set-Cookie': 'fohn=' + cookiedate,
 		  'Content-Type': 'text/html'
 		});
 	response.end(a);
