@@ -1,0 +1,27 @@
+{
+  "name": "filteroldhdnews",
+  "version": "0.0.1",
+  "description": "filter old hacker news so visual skimming is easier",
+  "main": "main.js",
+  "dependencies": {
+    "cookies": "^0.5.0",
+    "node-simple-router": "^0.9.4-2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/klobs/fohn.git"
+  },
+  "keywords": [
+    "ycombinator"
+  ],
+  "author": "k",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/klobs/fohn/issues"
+  },
+  "homepage": "https://github.com/klobs/fohn"
+}
