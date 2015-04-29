@@ -1,6 +1,6 @@
-var http = require("http");
-var https = require("https");
-var timers = require("timers");
+var http    = require("http");
+var https   = require("https");
+var timers  = require("timers");
 var Cookies = require("cookies");
 
 var title = "Fohn";
