@@ -2,6 +2,9 @@ var http    = require("http");
 var https   = require("https");
 var timers  = require("timers");
 var Cookies = require("cookies");
+var Router  = require('node-simple-router');
+var fs    = require('fs');
+
 
 var title = "Fohn";
 var numberTopStories = 10;
@@ -11,6 +14,8 @@ var intervalInMsec = 5000;
 
 var	topstories = [];
 var newsstore = {};
+
+var router = Router();
 
 https.get("https://hacker-news.firebaseio.com/v0/topstories.json", 
 		function(res){
@@ -96,14 +101,24 @@ timers.setInterval(function(){
 	);
 },intervalInMsec);
 
-var server = http.createServer(function(request, response){
+router.get("/static/css/s.css", function(request, response){
+	var  s = fs.createReadStream("static/css/s.css");
+	s.pipe(response);
+});
+
+router.get("/static/js/s.js", function(request, response){
+	var  s = fs.createReadStream("static/js/s.js");
+	s.pipe(response);
+});
+
+router.get("/", function(request, response){
 	var cookies = new Cookies(request, response);
 
 	var olddate = cookies.get("fohna");
 	cookies.set("fohna", (new Date()).getTime());
 	cookies.set("fohno", olddate);
 
-	var a = '<!doctype html><html><head><meta charset="utf-8"><title>' + title + '</title><head><body><ol>';
+	var a = '<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="/static/css/s.css" /><script src="/static/js/s.js"></script><title>' + title + '</title><head><body><ol id="fohn">';
 	for (b in topstories){
 		if ( newsstore[topstories[b]] != undefined)
 			a = a + formatItem(b);
@@ -116,4 +131,5 @@ var server = http.createServer(function(request, response){
 	response.end(a);
 });
 
+var server = http.createServer(router);
 server.listen(8000);
